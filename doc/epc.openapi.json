@@ -1,0 +1,166 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "EPC API Hackaton",
+        "description": "",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.veracity.com/df/ec-api-hackaton"
+        }
+    ],
+    "paths": {
+        "/emissions-calculation": {
+            "get": {
+                "summary": "emissions-calculation",
+                "operationId": "emissions-calculation",
+                "parameters": [
+                    {
+                        "name": "imo",
+                        "in": "query",
+                        "description": "IMO of a ship that will require emission calculations.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "avg_speed_kn",
+                        "in": "query",
+                        "description": "The vessels intended average sailing speed in knots on the route. Optional if durtation_h is given",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "duration_h",
+                        "in": "query",
+                        "description": "Expected duration of the voyage in hours. Optional if avg_speed_kn is given",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "distance_nm",
+                        "in": "query",
+                        "description": "Expected length of the voyage in Nautical Miles\n",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "load_cond",
+                        "in": "query",
+                        "description": "Loading condition of the vessel to be considered in the power estimation.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cargo_unit",
+                        "in": "query",
+                        "description": "Cargo unit used to submit cargo_amt. Currently the only possible value are tons. Used to calculate EEOI and transport_work.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cargo_amt",
+                        "in": "query",
+                        "description": "Amount of cargo the ship is carrying (in given cargo_unit). Used to calculate EEOI and transport_work .",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "me_fuel_type",
+                        "in": "query",
+                        "description": "Fuel type to be considered for the main engine consumbtion for the emissions estimate. Overwriting the model assumption.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ae_fuel_type",
+                        "in": "query",
+                        "description": "Fuel type to be considered for the auxiliary engine consumption for the emissions estimate. Overwriting the model assumption.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "boiler_fuel_type",
+                        "in": "query",
+                        "description": "Fuel type to be considered for the boiler consumbtion for the emissions estimate. Overwriting the model assumption.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Total emissions calculation on a specified route, along with input parameters used for running the calculation.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "imo": 1234567,
+                                    "avg_speed_kn": 10.045,
+                                    "load_cond": "ballast",
+                                    "cargo_unit": "tons",
+                                    "cargo_amt": 544385.543,
+                                    "me_fuel_type": "MGO",
+                                    "ae_fuel_type": "MGO",
+                                    "boiler_fuel_type": "MGO",
+                                    "duration_h": 354.5,
+                                    "me_fuel_cons_metric_metric_tons": 0.1,
+                                    "ae_fuel_cons_metric_metric_tons": 0.1,
+                                    "boiler_fuel_cons_metric_metric_tons": 0.1,
+                                    "total_co2_emission_metric_tons": 0.1,
+                                    "total_so2_emission_metric_tons": 0.1,
+                                    "total_particulate_matter_emission_metric_tons": 0.1,
+                                    "total_nox_emission_metric_tons": 0.1,
+                                    "total_nmvoc_emission_metric_tons": 0.1,
+                                    "total_ch4_emission_metric_tons": 0.1,
+                                    "total_n2o_emission_metric_tons": 0.1,
+                                    "total_co_emission_metric_tons": 0.1,
+                                    "total_black_carbon_emission_metric_tons": 0.1,
+                                    "total_organic_carbon_emission_metric_tons": 0.1,
+                                    "transport_work": 0.1,
+                                    "eeoi": 0.1
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "Ocp-Apim-Subscription-Key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "subscription-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
+    ],
+    "x-ms-export-notes": [
+        "Definitions/body parameters are not exported since this API references multiple schemas with OpenAPI components as opposed to one. Schemas referenced: 1624529957406,1624530063786"
+    ]
+}

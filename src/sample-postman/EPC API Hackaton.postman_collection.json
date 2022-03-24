@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "0076e62b-0ab4-4760-804b-017de5e1fc96",
+		"name": "EPC API Hackaton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "emissions-calculation",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{subscribtion-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.veracity.com/df/ec-api-hackaton/emissions-calculation?imo=9811000&avg_speed_kn=&duration_h=1&distance_nm=100&load_cond=laden&cargo_unit=&cargo_amt=&me_fuel_type=MGO&ae_fuel_type=MGO&boiler_fuel_type=MGO",
+					"protocol": "https",
+					"host": [
+						"api",
+						"veracity",
+						"com"
+					],
+					"path": [
+						"df",
+						"ec-api-hackaton",
+						"emissions-calculation"
+					],
+					"query": [
+						{
+							"key": "imo",
+							"value": "9811000",
+							"description": "(Required) IMO of a ship that will require emission calculations."
+						},
+						{
+							"key": "avg_speed_kn",
+							"value": "",
+							"description": "The vessels intended average sailing speed in knots on the route. Optional if durtation_h is given"
+						},
+						{
+							"key": "duration_h",
+							"value": "1",
+							"description": "(Required) Expected duration of the voyage in hours. Optional if avg_speed_kn is given"
+						},
+						{
+							"key": "distance_nm",
+							"value": "100",
+							"description": "Expected length of the voyage in Nautical Miles\n"
+						},
+						{
+							"key": "load_cond",
+							"value": "laden",
+							"description": "(Required) Loading condition of the vessel to be considered in the power estimation."
+						},
+						{
+							"key": "cargo_unit",
+							"value": "",
+							"description": "Cargo unit used to submit cargo_amt. Currently the only possible value are tons. Used to calculate EEOI and transport_work."
+						},
+						{
+							"key": "cargo_amt",
+							"value": "",
+							"description": "Amount of cargo the ship is carrying (in given cargo_unit). Used to calculate EEOI and transport_work ."
+						},
+						{
+							"key": "me_fuel_type",
+							"value": "MGO",
+							"description": "Fuel type to be considered for the main engine consumbtion for the emissions estimate. Overwriting the model assumption."
+						},
+						{
+							"key": "ae_fuel_type",
+							"value": "MGO",
+							"description": "Fuel type to be considered for the auxiliary engine consumption for the emissions estimate. Overwriting the model assumption."
+						},
+						{
+							"key": "boiler_fuel_type",
+							"value": "MGO",
+							"description": "Fuel type to be considered for the boiler consumbtion for the emissions estimate. Overwriting the model assumption."
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Total emissions calculation on a specified route, along with input parameters used for running the calculation.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/emissions-calculation?imo=<integer>&avg_speed_kn=<number>&duration_h=<number>&distance_nm=<number>&load_cond=<string>&cargo_unit=<string>&cargo_amt=<number>&me_fuel_type=<string>&ae_fuel_type=<string>&boiler_fuel_type=<string>&subscription-key=<API Key>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"emissions-calculation"
+							],
+							"query": [
+								{
+									"key": "imo",
+									"value": "<integer>"
+								},
+								{
+									"key": "avg_speed_kn",
+									"value": "<number>"
+								},
+								{
+									"key": "duration_h",
+									"value": "<number>"
+								},
+								{
+									"key": "distance_nm",
+									"value": "<number>"
+								},
+								{
+									"key": "load_cond",
+									"value": "<string>"
+								},
+								{
+									"key": "cargo_unit",
+									"value": "<string>"
+								},
+								{
+									"key": "cargo_amt",
+									"value": "<number>"
+								},
+								{
+									"key": "me_fuel_type",
+									"value": "<string>"
+								},
+								{
+									"key": "ae_fuel_type",
+									"value": "<string>"
+								},
+								{
+									"key": "boiler_fuel_type",
+									"value": "<string>"
+								},
+								{
+									"key": "subscription-key",
+									"value": "<API Key>"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"imo\": 1234567,\n \"avg_speed_kn\": 10.045,\n \"load_cond\": \"ballast\",\n \"cargo_unit\": \"tons\",\n \"cargo_amt\": 544385.543,\n \"me_fuel_type\": \"MGO\",\n \"ae_fuel_type\": \"MGO\",\n \"boiler_fuel_type\": \"MGO\",\n \"duration_h\": 354.5,\n \"me_fuel_cons_metric_metric_tons\": 0.1,\n \"ae_fuel_cons_metric_metric_tons\": 0.1,\n \"boiler_fuel_cons_metric_metric_tons\": 0.1,\n \"total_co2_emission_metric_tons\": 0.1,\n \"total_so2_emission_metric_tons\": 0.1,\n \"total_particulate_matter_emission_metric_tons\": 0.1,\n \"total_nox_emission_metric_tons\": 0.1,\n \"total_nmvoc_emission_metric_tons\": 0.1,\n \"total_ch4_emission_metric_tons\": 0.1,\n \"total_n2o_emission_metric_tons\": 0.1,\n \"total_co_emission_metric_tons\": 0.1,\n \"total_black_carbon_emission_metric_tons\": 0.1,\n \"total_organic_carbon_emission_metric_tons\": 0.1,\n \"transport_work\": 0.1,\n \"eeoi\": 0.1\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "subscription-key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.veracity.com/df/ec-api-hackaton",
+			"type": "string"
+		}
+	]
+}
