@@ -1,0 +1,15 @@
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\bin\Debug\net6.0\sample-c-sharp.exe
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\bin\Debug\net6.0\sample-c-sharp.deps.json
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\bin\Debug\net6.0\sample-c-sharp.runtimeconfig.json
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\bin\Debug\net6.0\sample-c-sharp.dll
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\bin\Debug\net6.0\sample-c-sharp.pdb
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.csproj.AssemblyReference.cache
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.AssemblyInfoInputs.cache
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.AssemblyInfo.cs
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.csproj.CoreCompileInputs.cache
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.dll
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\refint\sample-c-sharp.dll
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.pdb
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\sample-c-sharp.genruntimeconfig.cache
+C:\Users\LARKLEP\Documents\Code\DataFactory\veracity-hackathon-norshipping\src\sample-c-sharp\obj\Debug\net6.0\ref\sample-c-sharp.dll
