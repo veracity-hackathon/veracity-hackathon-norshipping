@@ -53,7 +53,7 @@ key=asnk603nlk5f7
 */
 string ReadSubscriptionKey()
 {
-    var keyFilePath = "python/subscription_key.txt";
+    var keyFilePath = "src/subscription_key.txt";
     var key = File.ReadAllText(keyFilePath).Trim();
 
     if (string.IsNullOrWhiteSpace(key))

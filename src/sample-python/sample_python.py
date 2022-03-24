@@ -10,7 +10,7 @@ E.g
 asnk603nlk5f7
 '''
 def get_subscription_key():
-    key_filepath = "src\sample-postman\subscription_key.txt"
+    key_filepath = "src\subscription_key.txt"
     with open(key_filepath, "r") as f:
         subscription_key = f.read().strip()
     if not subscription_key:
