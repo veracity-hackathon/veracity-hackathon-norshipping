@@ -1,7 +1,8 @@
-﻿var client = new HttpClient();
-var baseUrl = "https://api.veracity.com/df/ec-api-hackaton/emissions-calculation";
+﻿using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
-var jsonOptions = new System.Text.Json.JsonSerializerOptions { WriteIndented = true };
+var client = new HttpClient();
+var baseUrl = "https://api.veracity.com/df/ec-api-hackaton/emissions-calculation";
 
 /*
 You can choose to either ask for subscription in command line or read it from a .txt file
@@ -19,16 +20,15 @@ Response status: 200 - OK
 */
 var validQueryParameters = BuildGetVesselsParameters(loadCondition: "ballast", imo: 9936044, durationInHours: 24, distanceInNauticalMiles: 240);
 var validResponse = await SendHttpGetRequest(validQueryParameters);
-await PrintHttpResponse(validResponse);
+Console.WriteLine(validResponse);
 
 // ======= Invalid request, incorrect IMO number =======
 /*
 Response status: 404 - Not Found
 */
-//var invalidImoQueryParameters = BuildGetVesselsParameters("ballast", "1234567", 24, 240);
 var invalidImoQueryParameters = BuildGetVesselsParameters(loadCondition: "ballast", imo: 1234567, durationInHours: 24, distanceInNauticalMiles: 240);
 var invalidImoResponse = await SendHttpGetRequest(invalidImoQueryParameters);
-await PrintHttpResponse(invalidImoResponse);
+Console.WriteLine(invalidImoResponse);
 
 
 // ======= Invalid request, missing IMO number =======
@@ -36,11 +36,9 @@ await PrintHttpResponse(invalidImoResponse);
 IMO number is required. Missing IMO number raises exception.
 Response status: 404 - Resource Not Found
 */
-//var invalidQueryParameters = BuildGetVesselsParameters("ballast", "", 24, 240);
 var missingImoQueryParameters = BuildGetVesselsParameters(loadCondition: "ballast", durationInHours: 24, distanceInNauticalMiles: 240);
-var missingImoResponse = await SendHttpGetRequest(missingImoQueryParameters);
-await PrintHttpResponse(missingImoResponse);
-
+var missingImoResponse = await SendHttpGetRequest(invalidImoQueryParameters);
+Console.WriteLine(missingImoResponse);
 
 /*
 Save subscription key in a .txt file to avoid passing subscription key in command line every run.
@@ -53,7 +51,7 @@ key=asnk603nlk5f7
 */
 string ReadSubscriptionKey()
 {
-    var keyFilePath = "src/subscription_key.txt";
+    var keyFilePath = "python/subscription_key.txt";
     var key = File.ReadAllText(keyFilePath).Trim();
 
     if (string.IsNullOrWhiteSpace(key))
@@ -120,23 +118,41 @@ string BuildGetVesselsParameters(
         return $"?{queryString}";
     }
 
-async Task<HttpResponseMessage> SendHttpGetRequest(string requestUri)
+async Task<VesselMetricsDto?> SendHttpGetRequest(string requestUri)
 {
-    var response = await client.GetAsync(requestUri);
-    return response;
+    try
+    {
+        var vesselMetrics = await client.GetFromJsonAsync<VesselMetricsDto>(requestUri);
+        return vesselMetrics;
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("Unable to fetch vessel metrics:");
+        Console.Write(e.ToString());
+        return null;
+    }
 }
 
-async Task PrintHttpResponse(HttpResponseMessage response)
+record VesselMetricsDto
 {
-    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-    {
-        var content = await response.Content.ReadAsStringAsync();
-        var contentJson = System.Text.Json.Nodes.JsonNode.Parse(content);
-        Console.WriteLine(contentJson.ToJsonString(jsonOptions));
-    }
-    else
-    {
-        Console.WriteLine("The server did not respond with an HTTP OK response.");
-        Console.WriteLine($"Response status code: {((int)response.StatusCode)} - {response.ReasonPhrase}");
-    }
+    [JsonPropertyName("avg_speed_kn")]
+    public float AverageSpeedInKn { get; init; }
+
+    [JsonPropertyName("estimated_distance_nm")]
+    public float EstimatedDistanceInNm { get; init; }
+
+    [JsonPropertyName("duration_h")]
+    public float DurationInHours { get; init; }
+
+    [JsonPropertyName("me_fuel_cons_metric_metric_tons")]
+    public float MainEngineFuelConsumptionInTons { get; init; }
+
+    [JsonPropertyName("ae_fuel_cons_metric_metric_tons")]
+    public float AuxilaryEnginefuelFuelConsumptionInTons { get; init; }
+
+    [JsonPropertyName("boiler_fuel_cons_metric_metric_tons")]
+    public float BoilerEngineFuelConsumptionInTons { get; init; }
+
+    [JsonPropertyName("total_co2_emission_metric_tons")]
+    public float TotalCo2EmissionMetricInTons { get; init; }
 }

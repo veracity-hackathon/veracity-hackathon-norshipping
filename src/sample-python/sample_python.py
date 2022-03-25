@@ -18,25 +18,18 @@ def get_subscription_key():
     return subscription_key
     
 
-def get_request(query, header):
+def send_http_get_request(query, header):
     base_url = "https://api.veracity.com/df/ec-api-hackaton/emissions-calculation"
     try:
-        return requests.get(url=base_url+query, headers=header)
-    except requests.exceptions.RequestException as err:
-        print(err)
-        return
-
-def print_response(response):
-    if isinstance(response, requests.Response) and response.status_code == requests.codes.ok:
-        try:
-            data = response.json()
-            print(json.dumps(data, indent=2))
-        except json.decoder.JSONDecodeError as e_info:
-            print(f"Failed to process response as JSON because of: {e_info}")
-            print(response.text)
-    else:
-        print("The server did not respond with an HTTP OK response.")
-        print(f"Response status: {response.status_code} - {response.reason}")
+        response = requests.get(url=base_url+query, headers=header)
+        if response.status_code == requests.codes.ok:
+            content = response.json()
+            return content
+        else:
+            print("The server did not respond with an HTTP OK response.")
+            print(f"Response status: {response.status_code} - {response.reason}")
+    except Exception as err:
+        print(f"Unable to fetch vessel metrics: {err}")
 
 def build_get_vessel_parameters(**kwargs):
     '''
@@ -63,17 +56,20 @@ header = {'Ocp-Apim-Subscription-Key': subscription_key}
 Response status: 200 - OK
 '''
 valid_query = build_get_vessel_parameters(imo=9936044, duration_h=24, load_cond="ballast", distance_nm=240)
-valid_response = get_request(valid_query, header)
-print_response(valid_response)
+valid_data = send_http_get_request(valid_query, header)
+print(valid_data)
 
+# Consume data
+average_speed_knots = valid_data["avg_speed_kn"]
+print(f"The average speed is {average_speed_knots} knots")
 
 #======= Invalid request, incorrect IMO query =======#
 '''
 Response status: 404 - Not Found
 '''
 incorrect_imo_query = build_get_vessel_parameters(imo=1234567, duration_h=24, load_cond="ballast", distance_nm=240)
-incorrect_imo_response = get_request(incorrect_imo_query, header)
-print_response(incorrect_imo_response)
+incorrect_imo_data = send_http_get_request(incorrect_imo_query, header)
+print(incorrect_imo_data)
 
 
 #======= Invalid request, missing IMO query =======#
@@ -82,14 +78,5 @@ IMO number is required. Missing IMO number raises exception.
 Response status: 404 - Resource Not Found
 '''
 missing_imo_query = build_get_vessel_parameters(duration_h=24, load_cond="ballast", distance_nm=240)
-missing_imo_response = get_request(missing_imo_query, header)
-print_response(missing_imo_response)
-
-
-#======= Consume data =======#
-'''
-The API response is JSON containing the data. This is an example on how to acces the data.
-'''
-data = valid_response.json()
-average_speed_knots = data["avg_speed_kn"]
-print(f"The average speed is {average_speed_knots} knots")
+missing_imo_data = send_http_get_request(missing_imo_query, header)
+print(missing_imo_data)
