@@ -14,11 +14,12 @@ Repository content:
     │   ├── sample-c-sharp          # Code samples for API query in C#
     │   ├── sample-postman          # Sample project file that can be impoted into Postman
     │   ├── sample-python           # Code samples for API query in Python
+    │   ├── subscription_key.txt    # Textfile to save subscription_key if desirable
     └── README.md                   # This file
 
 Code samples summary:
-1.	Sample project in C#: TODO
-2.	Sample project in Python: TODO
+1.	Sample project in C#: Codesamples for accessing API and query data. If you choose to save subscription_key in the text file make sure the path in function `ReadSubscriptionKey` is correct, this will depend on how you run the code. To build queries, pass parameter-names and the value to `BuildGetVesselParameters`. List of parameter-names can be found in API documentation. IMO is the only required parameter. 
+2.	Sample project in Python: Codesamples for accessing API and query data. If you choose to save subscription_key in the text file make sure the path in function `get_subscription_key` is correct, this will depend on how you run the code. To build queries, pass parameter-names and the value to `build_get_vessel_parameters`. List of parameter-names can be found in API documentation. IMO is the only required parameter. 
 3.	Sample collection file in Postman:  
 You can import the collection file into Postman `(File -> Import)`. Once imported a new collection **EPC API Hackaton** is created and can be used to query the API. You need to replace header parameter `{{subscribtion-key}}` with a subscription key you have received.  You can get Postman form here https://www.postman.com/
 
