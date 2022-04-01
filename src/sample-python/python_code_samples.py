@@ -10,7 +10,7 @@ asnk603nlk5f7
 '''
 
 
-def get_subscription_key():
+def read_subscription_key():
     key_filepath = "../subscription_key.txt"
     with open(key_filepath, "r") as f:
         subscription_key = f.read().strip()
@@ -48,8 +48,8 @@ def build_get_vessel_parameters(**kwargs):
 '''
 You can choose to either ask for subscription in command line or read it from a .txt file
 '''
-# subscription_key = input("Please enter the subscription key: ")
-subscription_key = get_subscription_key()
+subscription_key = input("Please enter the subscription key: ")
+# subscription_key = read_subscription_key()
 
 header = {'Ocp-Apim-Subscription-Key': subscription_key}
 
