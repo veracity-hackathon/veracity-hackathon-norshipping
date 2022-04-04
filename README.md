@@ -9,13 +9,14 @@ Repository content:
 
     .
     ├── doc
-    │   ├── epc.openapi.json        # Open API specification for the EPC API
-    ├── src                         # Source code with samples
-    │   ├── sample-c-sharp          # Code samples for API query in C#
-    │   ├── sample-postman          # Sample project file that can be impoted into Postman
-    │   ├── sample-python           # Code samples for API query in Python
-    │   ├── subscription_key.txt    # Textfile to save subscription_key if desirable
-    └── README.md                   # This file
+    │   ├── epc.openapi.json                        # Open API specification for the EPC API
+    |   ├── NorShippin-Hackaton-Appendix-A.xlsx     # Extra information about specific ships
+    ├── src                                         # Source code with samples
+    │   ├── sample-c-sharp                          # Code samples for API query in C#
+    │   ├── sample-postman                          # Sample project file that can be impoted into Postman
+    │   ├── sample-python                           # Code samples for API query in Python
+    │   ├── subscription_key.txt                    # Textfile to save subscription_key if desirable
+    └── README.md                                   # This file
 
 Code samples summary:
 1.	Sample project in C#: Codesamples for accessing API and query data. If you choose to save subscription_key in the text file make sure the path in function `ReadSubscriptionKey` is correct, this will depend on how you run the code. To build queries, pass parameter-names and the value to `BuildGetVesselParameters`. List of parameter-names can be found in API documentation. IMO is the only required parameter. 
